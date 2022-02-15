@@ -6,7 +6,6 @@ function TodolistRow({todoName}) {
     <tr>
       <td>
         <button>
-          
           <form>
             <input type="checkbox">
             </input>
@@ -32,6 +31,7 @@ function TodolistCategoryRow({category}) {
 }
 
 function TodolistTable({todos}) {
+
   const rows = [];
   let lastCategory = null;
 
@@ -84,7 +84,28 @@ function UtilitiesBar({stats}) {
   );
 }
 
-function TodolistPage({todos, stats}) {
+function TodolistPage() {
+  const [todos, setTodos] = useState(
+    [
+      {name: "todo 1", swipes: 0},
+      {name: "todo 6", swipes: 1},
+      {name: "todo 7", swipes: 1},
+      {name: "todo 3", swipes: 1},
+      {name: "todo 4", swipes: 3},
+      {name: "todo 2", swipes: 4},
+      {name: "todo 5", swipes: 5},
+    ]
+  );
+  const [stats, setStats] = useState(
+    {
+      swipedRight: 0,
+      swipedLeft: 0,
+      completedToday: 0,
+    }
+  );
+
+  
+
   return (
     <div>
       <UtilitiesBar stats={stats}/>
@@ -93,28 +114,9 @@ function TodolistPage({todos, stats}) {
   );
 }
 
-const todoObjects = [
-  {name: "todo 1", swipes: 0},
-  {name: "todo 6", swipes: 1},
-  {name: "todo 7", swipes: 1},
-  {name: "todo 3", swipes: 1},
-  {name: "todo 4", swipes: 3},
-  {name: "todo 2", swipes: 4},
-  {name: "todo 5", swipes: 5},
-
-];
-
-const stats = {
-  swipedRight: 0,
-  swipedLeft: 0,
-  completedToday: 0,
-};
-
 function App() {
   return (
-  <TodolistPage 
-    todos={todoObjects}
-    stats={stats}/>
+  <TodolistPage />
   );
 }
 
