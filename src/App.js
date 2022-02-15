@@ -1,15 +1,18 @@
-import {useState} from 'react';
+ import {useState} from 'react';
 import "./App.css";
 
-function TodolistRow({todo}) {
+function TodolistRow({todoName}) {
   return (
     <tr>
       <td>
         <button>
+          
           <form>
             <input type="checkbox">
-              {todo.name}
             </input>
+            <label>
+              {todoName}
+            </label>
           </form>
         </button>
       </td>
@@ -52,7 +55,7 @@ function TodolistTable({todos}) {
     }
     rows.push(
       <TodolistRow
-        todo = {todo.name}/>
+        todoName = {todo.name} />
     );
   });
 
@@ -76,7 +79,7 @@ function UtilitiesBar({stats}) {
         <input type="text" placeholder="New Todo..."></input>
       </form>
       <button>Check Up</button>
-      <h3>Left/Right Ratio: {stats[swipedLeft]}:{stats[swipedRight]}</h3>
+      <h3>Left/Right Ratio: {stats.swipedLeft} : {stats.swipedRight}</h3>
     </div>
   );
 }
@@ -91,7 +94,7 @@ function TodolistPage({todos, stats}) {
 }
 
 const todoObjects = [
-  {name: "todo 1", swipes: 1},
+  {name: "todo 1", swipes: 0},
   {name: "todo 6", swipes: 1},
   {name: "todo 7", swipes: 1},
   {name: "todo 3", swipes: 1},
