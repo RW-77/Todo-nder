@@ -1,3 +1,19 @@
-.h3 {
-    font-weight: none;
+.ubuntu-font {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+}
+
+button {
+    font-family: 'Ubuntu', sans-serif;
+    
+}
+
+th {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+}
+
+td {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
 }

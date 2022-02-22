@@ -1,4 +1,4 @@
- import {useState} from 'react';
+import {useState} from 'react';
 import "./App.css";
 
 function TodolistRow({todoName}) {
@@ -30,14 +30,14 @@ function TodolistCategoryRow({category}) {
   );
 }
 
-function TodolistTable({todos}) {
+function TodolistTable({todos, stats}) {
 
   const rows = [];
   let lastCategory = null;
 
-  todos.map((todo) => {
+  todos.forEach((todo) => {
     let category;
-    if(todo.swipes == 0) {
+    if(todo.swipes === 0) {
       category = "New:"
     } else if(todo.swipes <= 2) {
       category = "Recent:"
@@ -70,9 +70,9 @@ function TodolistTable({todos}) {
   ); 
 }
 
-function UtilitiesBar({stats}) {
+function UtilitiesBar({stats, todos}) {
   return (
-    <div>
+    <div className='ubuntu-font'>
       <button>Daily Summary</button>
       <button>Weekly Summary</button>
       <form>
@@ -104,19 +104,21 @@ function TodolistPage() {
     }
   );
 
-  
-
   return (
     <div>
-      <UtilitiesBar stats={stats}/>
-      <TodolistTable todos={todos}/>
+      <UtilitiesBar 
+        stats={stats}
+        todos={todos} />
+      <TodolistTable 
+        todos={todos}
+        stats={stats} />   
     </div>
   );
 }
 
 function App() {
   return (
-  <TodolistPage />
+    <TodolistPage/>
   );
 }
 
