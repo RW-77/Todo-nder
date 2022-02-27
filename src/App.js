@@ -59,7 +59,8 @@ function TodolistTable({todos, stats, onTodosChange, onStatsChange}) {
     if(category !== lastCategory) {
       rows.push(
         <TodolistCategoryRow 
-          category={category}/>
+          category={category}
+          key={}/>
       );
       lastCategory = category;
     }
@@ -92,8 +93,24 @@ function UtilitiesBar({stats, todos, setTodos, setStats}) {
   }
   function handleKeyDown(event) {
     if(event.key === 'Enter') {
-      console.log(event.target.value);
-      setTodos([{name: event.target.value, swipes: 0}].concat(todos));
+      let input = event.target.value;
+      console.log(input); // debug
+      let repeat = todos.forEach((todo) => {
+        if(input === todo) {
+          return false;
+        }
+      });
+      if(!repeat) {
+        setTodos(
+          [{
+            name: input, 
+            swipes: 0, 
+            id: this.name,
+          }].concat(todos)
+        );
+      } else {
+        alert("No duplicate todos allowed");
+      }      
     }
   }
 
@@ -120,13 +137,13 @@ function UtilitiesBar({stats, todos, setTodos, setStats}) {
 function TodolistPage() {
   const [todos, setTodos] = useState(
     [
-      {name: "todo 1", swipes: 0},
-      {name: "todo 6", swipes: 1},
-      {name: "todo 7", swipes: 1},
-      {name: "todo 3", swipes: 1},
-      {name: "todo 4", swipes: 3},
-      {name: "todo 2", swipes: 4},
-      {name: "todo 5", swipes: 5},
+      {name: "todo 1", swipes: 0, id: this.name},
+      {name: "todo 6", swipes: 1, id: this.name}, 
+      {name: "todo 7", swipes: 1, id: this.name},
+      {name: "todo 3", swipes: 1, id: this.name},
+      {name: "todo 4", swipes: 3, id: this.name},
+      {name: "todo 2", swipes: 4, id: this.name},
+      {name: "todo 5", swipes: 5, id: this.name},
     ]
   );
   const [stats, setStats] = useState(
