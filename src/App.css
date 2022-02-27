@@ -17,3 +17,12 @@ td {
     font-family: 'Ubuntu', sans-serif;
     font-weight: bold;
 }
+
+th {
+    text-align: left;
+}
+
+p {
+    font-weight: normal;
+    font-size: 16px;
+}

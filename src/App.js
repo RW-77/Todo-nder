@@ -1,3 +1,13 @@
+/**
+ * Features:
+ * Throughout the day, users are free to add tasks to a task list that is locked
+ * (no deletes, swiped rights, custom sorting enabled, if no time scope is set, the default is one day)
+ * The Swipe Left/Right will also be a locked feature that becomes available towards the end of the day 
+ * (users will also have a chance to edit time limits within the window of time they process their tasks)
+ * If the user does not process their tasks, all will be swiped left by default
+ * Tasks that are continually swiped left will gradually appear more unpleasant (as incentive to remove them)
+ */
+
 import {useState} from 'react';
 import "./App.css";
 
@@ -30,7 +40,7 @@ function TodolistCategoryRow({category}) {
   );
 }
 
-function TodolistTable({todos, stats}) {
+function TodolistTable({todos, stats, onTodosChange, onStatsChange}) {
 
   const rows = [];
   let lastCategory = null;
@@ -70,15 +80,38 @@ function TodolistTable({todos, stats}) {
   ); 
 }
 
-function UtilitiesBar({stats, todos}) {
+function UtilitiesBar({stats, todos, setTodos, setStats}) {
+  const [showDaily, setShowDaily] = useState(false);
+  const [showWeekly, setShowWeekly] = useState(false);
+
+  function handleDayClick() {
+    setShowDaily(!showDaily);
+  }
+  function handleWeekClick() {
+    setShowWeekly(!showWeekly);
+  }
+  function handleKeyDown(event) {
+    if(event.key === 'Enter') {
+      console.log(event.target.value);
+      setTodos([{name: event.target.value, swipes: 0}].concat(todos));
+    }
+  }
+
   return (
     <div className='ubuntu-font'>
-      <button>Daily Summary</button>
-      <button>Weekly Summary</button>
+      <button onClick={handleDayClick}>Daily Summary</button>
+      {showDaily && <p>Tasks Completed: {stats.completedToday}</p>}
+
+      <button onClick={handleWeekClick}>Weekly Summary</button>
+      {showWeekly && <p>Tasks Completed: {stats.completedThisWeek}</p>}
+
       <form>
-        <input type="text" placeholder="New Todo..."></input>
+        <input 
+          type="text" 
+          placeholder="New Todo..." 
+          onKeyDown={handleKeyDown}></input>
       </form>
-      <button>Check Up</button>
+      <button >Check Up</button>
       <h3>Left/Right Ratio: {stats.swipedLeft} : {stats.swipedRight}</h3>
     </div>
   );
@@ -101,6 +134,7 @@ function TodolistPage() {
       swipedRight: 0,
       swipedLeft: 0,
       completedToday: 0,
+      completedThisWeek: 0
     }
   );
 
@@ -108,10 +142,14 @@ function TodolistPage() {
     <div>
       <UtilitiesBar 
         stats={stats}
-        todos={todos} />
+        todos={todos}
+        onTodosChange={setTodos}
+        onStatsChange={setStats} />
       <TodolistTable 
         todos={todos}
-        stats={stats} />   
+        stats={stats}
+        setTodos={setTodos}
+        setStats={setStats} />   
     </div>
   );
 }
