@@ -15,36 +15,34 @@
 import {useState} from 'react';
 import "./App.css";
 
-function TodolistRow({todo}) {
+function Todo({todo}) {
   return (
-    <tr>
-      <td>
-        <button>
-          <form>
-            <input type="checkbox">
-            </input>
-            <label>
-              {todo.name}
-            </label>
-          </form>
-        </button>
-      </td>
-    </tr>
+    <li>
+      <button>
+        <form>
+          <input type="checkbox"></input>
+        <label>
+          {todo.name}
+        </label>
+        </form>
+      </button>
+    </li>
+    
   );
 }
 
-function TodolistCategoryRow({category}) {
+function TodoCategory({category}) {
 
   return (
-    <tr>
-      <th>
+    <li>
+      <h3>
         {category}
-      </th>
-    </tr>
+      </h3>
+    </li>
   );
 }
 
-function TodolistTable({todos, stats, onTodosChange, onStatsChange}) {
+function Todolist({todos, stats, onTodosChange, onStatsChange}) {
 
   const rows = [];
   let lastCategory = null;
@@ -62,24 +60,24 @@ function TodolistTable({todos, stats, onTodosChange, onStatsChange}) {
     }
     if(category !== lastCategory) {
       rows.push(
-        <TodolistCategoryRow 
-          category={category} />
+        <TodoCategory 
+          category={category}
+          key={category.toLowerCase().split("").join("_")} />
       );
       lastCategory = category;
     }
     rows.push(
-      <TodolistRow
-        todo={todo} />
+      <Todo
+        todo={todo}
+        key={todo.id} />
     );
   });
 
   return (
     <div>
-      <table>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
+      <ul>
+        {rows}
+      </ul>
     </div>
   ); 
 }
@@ -104,6 +102,7 @@ function UtilitiesBar({stats, todos, setTodos, setStats}) {
         }
       });
       if(!repeat) {
+        console.log("not a repeat"); // debug
         setTodos(
           [{
             name: input, 
@@ -165,7 +164,7 @@ function TodolistPage() {
         todos={todos}
         onTodosChange={setTodos}
         onStatsChange={setStats} />
-      <TodolistTable 
+      <Todolist 
         todos={todos}
         stats={stats}
         setTodos={setTodos}

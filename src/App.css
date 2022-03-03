@@ -19,18 +19,9 @@ button {
     width: 200px;
 }
 
-th {
+h3 {
     font-family: 'Ubuntu', sans-serif;
-    font-weight: bold;
-}
-
-td {
-    font-family: 'Ubuntu', sans-serif;
-    font-weight: bold;
-}
-
-th {
-    text-align: left;
+    font-weight: none;
 }
 
 p {
