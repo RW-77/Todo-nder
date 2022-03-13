@@ -8,7 +8,6 @@
  * Tasks that are continually swiped left will gradually appear more unpleasant (as incentive to remove them)
  * 
  * Next Steps:
- * Change the data structure to a single array
  * Separate Weekly and Daily Stats into separate components
  */
 
@@ -21,13 +20,10 @@ function Todo({todo}) {
       <button>
         <form>
           <input type="checkbox"></input>
-        <label>
-          {todo.name}
-        </label>
+          <label>{todo.name}</label>
         </form>
       </button>
     </li>
-    
   );
 }
 
@@ -35,9 +31,7 @@ function TodoCategory({category}) {
 
   return (
     <li>
-      <h3>
-        {category}
-      </h3>
+      <h3>{category}</h3>
     </li>
   );
 }
@@ -75,9 +69,7 @@ function Todolist({todos, stats, onTodosChange, onStatsChange}) {
 
   return (
     <div>
-      <ul>
-        {rows}
-      </ul>
+      <ul>{rows}</ul>
     </div>
   ); 
 }
@@ -119,8 +111,8 @@ function UtilitiesBar({stats, todos, setTodos, setStats}) {
   return (
     <div className='ubuntu-font'>
       <button className="utilities-button" onClick={handleDayClick}>Daily Summary</button>
-      {showDaily && <p>Tasks Completed: {stats.completedToday}</p>}
-
+      {showDaily && <p>Tasks Completed: {stats.completedToday}</p>} 
+      <br/>
       <button className="utilities-button" onClick={handleWeekClick}>Weekly Summary</button>
       {showWeekly && <p>Tasks Completed: {stats.completedThisWeek}</p>}
 
